@@ -11,10 +11,10 @@ def start_message(msg):
     print(msg)
     try:
         r1 = random.randint(1, 1000)
-        legmem[msg.chat.id]=[r1,1]
+        legmem[msg.from_user.id]=[r1,1]
         bot.reply_to(msg,'ከ 1 አስከ 1000 ቁጥር ይዣለው 10 ጊዘ ገምታቹ ካገኛቹ ኣሸነፋቹ ማለት ነው አስኪ ጀምሩ')
     except:
-        legmem[msg.chat.id]=[r1,1]
+        legmem[msg.from_user.id]=[r1,1]
         bot.reply_to(msg,'ከ 1 አስከ 1000 ቁጥር ይዣለው 10 ጊዘ ገምታቹ ካገኛቹ ኣሸነፋቹ ማለት ነው አስኪ ጀምሩ')
 
 
@@ -22,27 +22,25 @@ def start_message(msg):
 
 @bot.message_handler(is_digit=True)
 def echo(msg):
+    print(msg)
     try:
-        b=legmem[msg.chat.id]
+        b=legmem[msg.from_user.id]
     except:
         bot.reply_to(msg,"please tap the /start button")
         return 0
-    if legmem[msg.chat.id][1]>=10:
-        bot.reply_to(msg,"teshenfehal yeyazkut "+str(legmem[msg.chat.id][0])+ " new")
-        legmem.pop(msg.chat.id, None)
-    elif int(msg.text)>legmem[msg.chat.id][0]:
-        bot.reply_to(msg,"ዝቅ")
-        legmem[msg.chat.id][1]=legmem[msg.chat.id][1]+1
-    elif int(msg.text)<legmem[msg.chat.id][0]:
-        bot.reply_to(msg,"ከፍ")
-        legmem[msg.chat.id][1]=legmem[msg.chat.id][1]+1
+    if legmem[msg.from_user.id][1]>=10:
+        bot.reply_to(msg,msg.from_user.first_name + " teshenfehal yeyazkut "+str(legmem[msg.from_user.id][0])+ " new")
+        legmem.pop(msg.from_user.id, None)
+    elif int(msg.text)>legmem[msg.from_user.id][0]:
+        bot.reply_to(msg,str(legmem[msg.from_user.id][1]) + " ዝቅ")
+        legmem[msg.from_user.id][1]=legmem[msg.from_user.id][1]+1
+    elif int(msg.text)<legmem[msg.from_user.id][0]:
+        bot.reply_to(msg,str(legmem[msg.from_user.id][1]) + " ከፍ")
+        legmem[msg.from_user.id][1]=legmem[msg.from_user.id][1]+1
     else:
-        bot.reply_to(msg,"👍",ReplyMarkup=markup)
-        legmem.pop(msg.chat.id, None)
-        
-@bot.message_handler(func= lambda m:True)
-def msf(msg):
-    bot.reply_to(msg,"good to see you")
+        bot.reply_to(msg,"👍")
+        legmem.pop(msg.from_user.id, None)
+
 
 bot.add_custom_filter(custom_filters.IsDigitFilter())
 
