@@ -12,10 +12,10 @@ def start_message(msg):
     try:
         r1 = random.randint(1, 1000)
         legmem[msg.from_user.id]=[r1,1]
-        bot.reply_to(msg,'ከ 1 አስከ 1000 ቁጥር ይዣለው 10 ጊዘ ገምታቹ ካገኛቹ ኣሸነፋቹ ማለት ነው አስኪ ጀምሩ')
+        bot.reply_to(msg,msg.from_user.first_name +' ከ 1 አስከ 1000 ቁጥር ይዣለው 10 ጊዘ ገምታቹ ካገኛቹ ኣሸነፋቹ ማለት ነው አስኪ ጀምሩ')
     except:
         legmem[msg.from_user.id]=[r1,1]
-        bot.reply_to(msg,'ከ 1 አስከ 1000 ቁጥር ይዣለው 10 ጊዘ ገምታቹ ካገኛቹ ኣሸነፋቹ ማለት ነው አስኪ ጀምሩ')
+        bot.reply_to(msg,msg.from_user.first_name + ' ከ 1 አስከ 1000 ቁጥር ይዣለው 10 ጊዘ ገምታቹ ካገኛቹ ኣሸነፋቹ ማለት ነው አስኪ ጀምሩ')
 
 
 #bot.send_photo(chat_id= -1001575818933,photo=open('joly.jpg', 'rb'))
