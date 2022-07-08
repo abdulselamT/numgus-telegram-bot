@@ -6,6 +6,14 @@ from adiscon import API_KEY
 import random
 legmem={}
 bot = telebot.TeleBot(API_KEY)
+
+@bot.chat_member_handler()
+def chat_m(message: types.ChatMemberUpdated):
+    old = message.old_chat_member
+    new = message.new_chat_member
+    if new.status == "member":
+        bot.send_message(message.chat.id,"wellcome {name}!".format(name=new.user.first_name))
+
 @bot.message_handler(commands=['start'])
 def start_message(msg):
     print(msg)
